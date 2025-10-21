@@ -1,0 +1,327 @@
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TikTakToeCode : MonoBehaviour
+{
+    // turn tracker: false => X, true => O (kept your logic)
+    private bool checker;
+    private int plusone;
+
+    // assign these 9 Texts in Inspector (children of your 9 Buttons)
+    public Text btnText1 = null;
+    public Text btnText2 = null;
+    public Text btnText3 = null;
+    public Text btnText4 = null;
+    public Text btnText5 = null;
+    public Text btnText6 = null;
+    public Text btnText7 = null;
+    public Text btnText8 = null;
+    public Text btnText9 = null;
+
+    // other UI
+    public Text btnResetGame = null;
+    public Text btnNewGame = null;
+    public Text msgFeedback = null;
+
+    public Text txtPlayerX;   // score display for X
+    public Text txtPlayerO;   // score display for O
+
+    // input lock after win
+    private bool gameOver;
+
+    // ==== Public click handlers (hook these to your 9 Buttons in the Inspector) ====
+
+    public void btnText1_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText1.text)) return;
+
+        if (checker == false) { btnText1.text = "X"; checker = true; }
+        else { btnText1.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText2_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText2.text)) return;
+
+        if (checker == false) { btnText2.text = "X"; checker = true; }
+        else { btnText2.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText3_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText3.text)) return;
+
+        if (checker == false) { btnText3.text = "X"; checker = true; }
+        else { btnText3.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText4_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText4.text)) return;
+
+        if (checker == false) { btnText4.text = "X"; checker = true; }
+        else { btnText4.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText5_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText5.text)) return;
+
+        if (checker == false) { btnText5.text = "X"; checker = true; }
+        else { btnText5.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText6_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText6.text)) return;
+
+        if (checker == false) { btnText6.text = "X"; checker = true; }
+        else { btnText6.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText7_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText7.text)) return;
+
+        if (checker == false) { btnText7.text = "X"; checker = true; }
+        else { btnText7.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText8_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText8.text)) return;
+
+        if (checker == false) { btnText8.text = "X"; checker = true; }
+        else { btnText8.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    public void btnText9_Click()
+    {
+        if (gameOver) return;
+        if (!string.IsNullOrEmpty(btnText9.text)) return;
+
+        if (checker == false) { btnText9.text = "X"; checker = true; }
+        else { btnText9.text = "O"; checker = false; }
+        score();
+        LockBoardIfWin();
+    }
+
+    // ==== Win detection and scoring (kept your logic) ====
+
+    public void score()
+    {
+        // PLAYER X wins
+        if (btnText1.text == "X" && btnText2.text == "X" && btnText3.text == "X")
+        {
+            btnText1.color = Color.red; btnText2.color = Color.red; btnText3.color = Color.red;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText1.text == "X" && btnText4.text == "X" && btnText7.text == "X")
+        {
+            btnText1.color = Color.blue; btnText4.color = Color.blue; btnText7.color = Color.blue;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText1.text == "X" && btnText5.text == "X" && btnText9.text == "X")
+        {
+            btnText1.color = Color.red; btnText5.color = Color.red; btnText9.color = Color.red;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText3.text == "X" && btnText5.text == "X" && btnText7.text == "X")
+        {
+            btnText3.color = Color.gray; btnText5.color = Color.gray; btnText7.color = Color.gray;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText2.text == "X" && btnText5.text == "X" && btnText8.text == "X")
+        {
+            btnText2.color = Color.yellow; btnText5.color = Color.yellow; btnText8.color = Color.yellow;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText3.text == "X" && btnText6.text == "X" && btnText9.text == "X")
+        {
+            btnText3.color = Color.cyan; btnText6.color = Color.cyan; btnText9.color = Color.cyan;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText4.text == "X" && btnText5.text == "X" && btnText6.text == "X")
+        {
+            btnText4.color = Color.green; btnText5.color = Color.green; btnText6.color = Color.green;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText7.text == "X" && btnText8.text == "X" && btnText9.text == "X")
+        {
+            btnText7.color = Color.blue; btnText8.color = Color.blue; btnText9.color = Color.blue;
+            msgFeedback.text = "The Winner is Player X";
+            plusone = SafeParse(txtPlayerX.text); txtPlayerX.text = Convert.ToString(plusone + 1);
+        }
+
+        // PLAYER O wins
+        if (btnText1.text == "O" && btnText2.text == "O" && btnText3.text == "O")
+        {
+            btnText1.color = Color.red; btnText2.color = Color.red; btnText3.color = Color.red;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText1.text == "O" && btnText4.text == "O" && btnText7.text == "O")
+        {
+            btnText1.color = Color.blue; btnText4.color = Color.blue; btnText7.color = Color.blue;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText1.text == "O" && btnText5.text == "O" && btnText9.text == "O")
+        {
+            btnText1.color = Color.red; btnText5.color = Color.red; btnText9.color = Color.red;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText3.text == "O" && btnText5.text == "O" && btnText7.text == "O")
+        {
+            btnText3.color = Color.gray; btnText5.color = Color.gray; btnText7.color = Color.gray;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText2.text == "O" && btnText5.text == "O" && btnText8.text == "O")
+        {
+            btnText2.color = Color.yellow; btnText5.color = Color.yellow; btnText8.color = Color.yellow;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText3.text == "O" && btnText6.text == "O" && btnText9.text == "O")
+        {
+            btnText3.color = Color.cyan; btnText6.color = Color.cyan; btnText9.color = Color.cyan;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText4.text == "O" && btnText5.text == "O" && btnText6.text == "O")
+        {
+            btnText4.color = Color.green; btnText5.color = Color.green; btnText6.color = Color.green;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+
+        if (btnText7.text == "O" && btnText8.text == "O" && btnText9.text == "O")
+        {
+            btnText7.color = Color.blue; btnText8.color = Color.blue; btnText9.color = Color.blue;
+            msgFeedback.text = "The Winner is Player O";
+            plusone = SafeParse(txtPlayerO.text); txtPlayerO.text = Convert.ToString(plusone + 1);
+        }
+    }
+
+    // Freeze input if a winner message is set
+    private void LockBoardIfWin()
+    {
+        if (msgFeedback != null && !string.IsNullOrEmpty(msgFeedback.text) &&
+            (msgFeedback.text.Contains("Player X") || msgFeedback.text.Contains("Player O")))
+        {
+            gameOver = true;
+        }
+        else
+        {
+            // also lock on draw: if all 9 filled and no winner text yet
+            if (AllFilled())
+            {
+                msgFeedback.text = string.IsNullOrEmpty(msgFeedback.text) ? "Draw" : msgFeedback.text;
+                gameOver = true;
+            }
+        }
+    }
+
+    private bool AllFilled()
+    {
+        return
+            !string.IsNullOrEmpty(btnText1.text) &&
+            !string.IsNullOrEmpty(btnText2.text) &&
+            !string.IsNullOrEmpty(btnText3.text) &&
+            !string.IsNullOrEmpty(btnText4.text) &&
+            !string.IsNullOrEmpty(btnText5.text) &&
+            !string.IsNullOrEmpty(btnText6.text) &&
+            !string.IsNullOrEmpty(btnText7.text) &&
+            !string.IsNullOrEmpty(btnText8.text) &&
+            !string.IsNullOrEmpty(btnText9.text);
+    }
+
+    private int SafeParse(string s)
+    {
+        int v;
+        return int.TryParse(s, out v) ? v : 0;
+    }
+
+    // ==== Reset/New Game buttons ====
+
+    public void btnResetGame_Click()
+    {
+        btnText1.text = "";
+        btnText2.text = "";
+        btnText3.text = "";
+        btnText4.text = "";
+        btnText5.text = "";
+        btnText6.text = "";
+        btnText7.text = "";
+        btnText8.text = "";
+        btnText9.text = "";
+
+        btnText1.color = Color.black;
+        btnText2.color = Color.black;
+        btnText3.color = Color.black;
+        btnText4.color = Color.black;
+        btnText5.color = Color.black;
+        btnText6.color = Color.black;
+        btnText7.color = Color.black;
+        btnText8.color = Color.black;
+        btnText9.color = Color.black;
+
+        msgFeedback.text = "";
+        gameOver = false;
+        checker = false; // X starts again
+    }
+
+    public void btnNewGame_Click()
+    {
+        btnResetGame_Click();
+        txtPlayerX.text = "";
+        txtPlayerO.text = "";
+    }
+}
